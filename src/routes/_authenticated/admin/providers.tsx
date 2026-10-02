@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Plus } from "lucide-react";
 import {
   adminProviders, adminSaveProvider, adminDeleteProvider, adminProviderBalance, adminProviderServices, adminImportServices,
+  adminTestProviderConnection, adminExplainProviderError,
 } from "@/lib/admin.functions";
 import { useAdminAction, useAdminQuery } from "@/components/lobex/useAdmin";
 import { DataTable, Field, PageHeader, money, td, fdate } from "@/components/lobex/ui";
@@ -27,12 +28,20 @@ function ProvidersPage() {
   const [form, setForm] = useState<any>(null);
   const [imp, setImp] = useState<{ provider: any; items: any[] } | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const [diag, setDiag] = useState<any>(null);
+  const [explain, setExplain] = useState(false);
+  const runDiag = useAdminAction(adminTestProviderConnection);
 
   async function test(p: any, label: string) {
     setBusy(p.id + label);
     try {
-      const r = await balance({ id: p.id }, "");
-      toast.success(`${label === "test" ? "Connection OK — " : ""}Balance: ${r.balance} ${r.currency ?? p.currency}`);
+      if (label === "test") {
+        const r = await runDiag({ id: p.id }, "");
+        setDiag({ provider: p, ...r });
+      } else {
+        const r = await balance({ id: p.id }, "");
+        toast.success(`Balance: ${r.balance} ${r.currency ?? p.currency}`);
+      }
     } catch {} finally { setBusy(null); }
   }
 
@@ -46,7 +55,7 @@ function ProvidersPage() {
 
   return (
     <>
-      <PageHeader title="Providers" sub="API keys are stored server-side and never shown to customers." actions={<Button onClick={() => setForm({ ...blank })}><Plus className="h-4 w-4" /> Add provider</Button>} />
+      <PageHeader title="Providers" sub="API keys are stored server-side and never shown to customers." actions={<><Button variant="outline" onClick={() => setExplain(true)}>Explain an error</Button><Button onClick={() => setForm({ ...blank })}><Plus className="h-4 w-4" /> Add provider</Button></>} />
       <DataTable head={["Name", "API URL", "Key", "Currency", "Balance", "Enabled", ""]} empty={!data?.length}>
         {data?.map((p) => (
           <tr key={p.id}>
@@ -94,6 +103,40 @@ function ProvidersPage() {
           )}
         </DialogContent>
       </Dialog>
+
+      <Dialog open={!!diag} onOpenChange={(o) => !o && setDiag(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader><DialogTitle>Connection test — {diag?.provider?.name}</DialogTitle></DialogHeader>
+          {diag && (
+            <div className="max-h-[70vh] space-y-4 overflow-y-auto text-sm">
+              <ul className="space-y-2">
+                {diag.checks.map((c: any) => (
+                  <li key={c.name} className="rounded-md border p-2">
+                    <span className={c.ok ? "font-semibold text-primary" : "font-semibold text-destructive"}>{c.ok ? "OK" : "FAIL"}</span> · {c.name}
+                    <div className="break-all font-mono text-xs text-muted-foreground">{c.detail}</div>
+                  </li>
+                ))}
+              </ul>
+              <div>
+                <div className="mb-1 font-semibold">Service mapping (no orders are placed)</div>
+                <DataTable head={["#", "Service", "Provider ID", "Provider name", "Status"]} empty={!diag.mappings.length}>
+                  {diag.mappings.map((m: any) => (
+                    <tr key={m.id}>
+                      <td className={td}>{m.id}</td>
+                      <td className={td}>{m.name}</td>
+                      <td className={td + " font-mono"}>{m.provider_service_id ?? "-"}</td>
+                      <td className={td + " text-xs"}>{m.provider_name ?? "-"}</td>
+                      <td className={td + (m.issue ? " text-destructive" : " text-primary")}>{m.issue || "OK"}</td>
+                    </tr>
+                  ))}
+                </DataTable>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {explain && <ExplainDialog onClose={() => setExplain(false)} />}
 
       {imp && <ImportDialog data={imp} onClose={() => setImp(null)} />}
     </>
@@ -145,6 +188,30 @@ function ImportDialog({ data, onClose }: { data: { provider: any; items: any[] }
             onClose();
           } catch {} finally { setBusy(false); }
         }}>Import {sel.size} selected</Button>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function ExplainDialog({ onClose }: { onClose: () => void }) {
+  const run = useAdminAction(adminExplainProviderError);
+  const [error, setError] = useState("");
+  const [ctx, setCtx] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [busy, setBusy] = useState(false);
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader><DialogTitle>Explain a provider error</DialogTitle></DialogHeader>
+        <div className="max-h-[70vh] space-y-3 overflow-y-auto">
+          <Field label="Provider error or response" hint="Do not paste API keys"><textarea className="field min-h-28" value={error} onChange={(e) => setError(e.target.value)} placeholder="Provider HTTP 400: ..." /></Field>
+          <Field label="Context (optional)"><input className="field" value={ctx} onChange={(e) => setCtx(e.target.value)} placeholder="e.g. action=add, service 2818, Instagram link" /></Field>
+          <Button className="w-full" disabled={busy || error.trim().length < 3} onClick={async () => {
+            setBusy(true); setAnswer("");
+            try { const r = await run({ error, context: ctx || undefined }, ""); setAnswer(r.answer); } catch {} finally { setBusy(false); }
+          }}>{busy ? "Analyzing..." : "Explain"}</Button>
+          {answer && <div className="whitespace-pre-wrap rounded-md border bg-muted p-3 text-sm">{answer}</div>}
+        </div>
       </DialogContent>
     </Dialog>
   );
