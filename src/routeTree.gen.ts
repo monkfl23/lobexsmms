@@ -10,33 +10,373 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as V2RouteImport } from './routes/v2'
+import { Route as AuthenticatedCustomerRouteRouteImport } from './routes/_authenticated/_customer/route'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
+import { Route as AuthenticatedCustomerAccountRouteImport } from './routes/_authenticated/_customer/account'
+import { Route as AuthenticatedCustomerAddFundsRouteImport } from './routes/_authenticated/_customer/add-funds'
+import { Route as AuthenticatedCustomerApiRouteImport } from './routes/_authenticated/_customer/api'
+import { Route as AuthenticatedCustomerDashboardRouteImport } from './routes/_authenticated/_customer/dashboard'
+import { Route as AuthenticatedCustomerNewOrderRouteImport } from './routes/_authenticated/_customer/new-order'
+import { Route as AuthenticatedCustomerOrdersRouteImport } from './routes/_authenticated/_customer/orders'
+import { Route as AuthenticatedCustomerServicesRouteImport } from './routes/_authenticated/_customer/services'
+import { Route as AuthenticatedCustomerTransactionsRouteImport } from './routes/_authenticated/_customer/transactions'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminApiSettingsRouteImport } from './routes/_authenticated/admin/api-settings'
+import { Route as AuthenticatedAdminCategoriesRouteImport } from './routes/_authenticated/admin/categories'
+import { Route as AuthenticatedAdminOrdersRouteImport } from './routes/_authenticated/admin/orders'
+import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated/admin/payments'
+import { Route as AuthenticatedAdminProvidersRouteImport } from './routes/_authenticated/admin/providers'
+import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin/services'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
+import { Route as AuthenticatedAdminTicketsRouteImport } from './routes/_authenticated/admin/tickets'
+import { Route as AuthenticatedAdminTransactionsRouteImport } from './routes/_authenticated/admin/transactions'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
+import { Route as ApiPublicV2RouteImport } from './routes/api/public/v2'
+import { Route as AuthenticatedCustomerTicketsIndexRouteImport } from './routes/_authenticated/_customer/tickets.index'
+import { Route as AuthenticatedCustomerTicketsIdRouteImport } from './routes/_authenticated/_customer/tickets.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const V2Route = V2RouteImport.update({
+  id: '/v2',
+  path: '/v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedCustomerRouteRoute =
+  AuthenticatedCustomerRouteRouteImport.update({
+    id: '/_customer',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCustomerAccountRoute =
+  AuthenticatedCustomerAccountRouteImport.update({
+    id: '/account',
+    path: '/account',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
+const AuthenticatedCustomerAddFundsRoute =
+  AuthenticatedCustomerAddFundsRouteImport.update({
+    id: '/add-funds',
+    path: '/add-funds',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
+const AuthenticatedCustomerApiRoute =
+  AuthenticatedCustomerApiRouteImport.update({
+    id: '/api',
+    path: '/api',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
+const AuthenticatedCustomerDashboardRoute =
+  AuthenticatedCustomerDashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
+const AuthenticatedCustomerNewOrderRoute =
+  AuthenticatedCustomerNewOrderRouteImport.update({
+    id: '/new-order',
+    path: '/new-order',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
+const AuthenticatedCustomerOrdersRoute =
+  AuthenticatedCustomerOrdersRouteImport.update({
+    id: '/orders',
+    path: '/orders',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
+const AuthenticatedCustomerServicesRoute =
+  AuthenticatedCustomerServicesRouteImport.update({
+    id: '/services',
+    path: '/services',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
+const AuthenticatedCustomerTransactionsRoute =
+  AuthenticatedCustomerTransactionsRouteImport.update({
+    id: '/transactions',
+    path: '/transactions',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminApiSettingsRoute =
+  AuthenticatedAdminApiSettingsRouteImport.update({
+    id: '/api-settings',
+    path: '/api-settings',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminCategoriesRoute =
+  AuthenticatedAdminCategoriesRouteImport.update({
+    id: '/categories',
+    path: '/categories',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminOrdersRoute =
+  AuthenticatedAdminOrdersRouteImport.update({
+    id: '/orders',
+    path: '/orders',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminPaymentsRoute =
+  AuthenticatedAdminPaymentsRouteImport.update({
+    id: '/payments',
+    path: '/payments',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminProvidersRoute =
+  AuthenticatedAdminProvidersRouteImport.update({
+    id: '/providers',
+    path: '/providers',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminServicesRoute =
+  AuthenticatedAdminServicesRouteImport.update({
+    id: '/services',
+    path: '/services',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminTicketsRoute =
+  AuthenticatedAdminTicketsRouteImport.update({
+    id: '/tickets',
+    path: '/tickets',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminTransactionsRoute =
+  AuthenticatedAdminTransactionsRouteImport.update({
+    id: '/transactions',
+    path: '/transactions',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const ApiPublicV2Route = ApiPublicV2RouteImport.update({
+  id: '/api/public/v2',
+  path: '/api/public/v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedCustomerTicketsIndexRoute =
+  AuthenticatedCustomerTicketsIndexRouteImport.update({
+    id: '/tickets/',
+    path: '/tickets/',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
+const AuthenticatedCustomerTicketsIdRoute =
+  AuthenticatedCustomerTicketsIdRouteImport.update({
+    id: '/tickets/$id',
+    path: '/tickets/$id',
+    getParentRoute: () => AuthenticatedCustomerRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/v2': typeof V2Route
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/account': typeof AuthenticatedCustomerAccountRoute
+  '/add-funds': typeof AuthenticatedCustomerAddFundsRoute
+  '/api': typeof AuthenticatedCustomerApiRoute
+  '/dashboard': typeof AuthenticatedCustomerDashboardRoute
+  '/new-order': typeof AuthenticatedCustomerNewOrderRoute
+  '/orders': typeof AuthenticatedCustomerOrdersRoute
+  '/services': typeof AuthenticatedCustomerServicesRoute
+  '/transactions': typeof AuthenticatedCustomerTransactionsRoute
+  '/admin/api-settings': typeof AuthenticatedAdminApiSettingsRoute
+  '/admin/categories': typeof AuthenticatedAdminCategoriesRoute
+  '/admin/orders': typeof AuthenticatedAdminOrdersRoute
+  '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
+  '/admin/providers': typeof AuthenticatedAdminProvidersRoute
+  '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
+  '/admin/transactions': typeof AuthenticatedAdminTransactionsRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/api/public/v2': typeof ApiPublicV2Route
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/tickets/$id': typeof AuthenticatedCustomerTicketsIdRoute
+  '/tickets/': typeof AuthenticatedCustomerTicketsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/v2': typeof V2Route
+  '/account': typeof AuthenticatedCustomerAccountRoute
+  '/add-funds': typeof AuthenticatedCustomerAddFundsRoute
+  '/api': typeof AuthenticatedCustomerApiRoute
+  '/dashboard': typeof AuthenticatedCustomerDashboardRoute
+  '/new-order': typeof AuthenticatedCustomerNewOrderRoute
+  '/orders': typeof AuthenticatedCustomerOrdersRoute
+  '/services': typeof AuthenticatedCustomerServicesRoute
+  '/transactions': typeof AuthenticatedCustomerTransactionsRoute
+  '/admin/api-settings': typeof AuthenticatedAdminApiSettingsRoute
+  '/admin/categories': typeof AuthenticatedAdminCategoriesRoute
+  '/admin/orders': typeof AuthenticatedAdminOrdersRoute
+  '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
+  '/admin/providers': typeof AuthenticatedAdminProvidersRoute
+  '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
+  '/admin/transactions': typeof AuthenticatedAdminTransactionsRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/api/public/v2': typeof ApiPublicV2Route
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/tickets/$id': typeof AuthenticatedCustomerTicketsIdRoute
+  '/tickets': typeof AuthenticatedCustomerTicketsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/v2': typeof V2Route
+  '/_authenticated/_customer': typeof AuthenticatedCustomerRouteRouteWithChildren
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/_authenticated/_customer/account': typeof AuthenticatedCustomerAccountRoute
+  '/_authenticated/_customer/add-funds': typeof AuthenticatedCustomerAddFundsRoute
+  '/_authenticated/_customer/api': typeof AuthenticatedCustomerApiRoute
+  '/_authenticated/_customer/dashboard': typeof AuthenticatedCustomerDashboardRoute
+  '/_authenticated/_customer/new-order': typeof AuthenticatedCustomerNewOrderRoute
+  '/_authenticated/_customer/orders': typeof AuthenticatedCustomerOrdersRoute
+  '/_authenticated/_customer/services': typeof AuthenticatedCustomerServicesRoute
+  '/_authenticated/_customer/transactions': typeof AuthenticatedCustomerTransactionsRoute
+  '/_authenticated/admin/api-settings': typeof AuthenticatedAdminApiSettingsRoute
+  '/_authenticated/admin/categories': typeof AuthenticatedAdminCategoriesRoute
+  '/_authenticated/admin/orders': typeof AuthenticatedAdminOrdersRoute
+  '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
+  '/_authenticated/admin/providers': typeof AuthenticatedAdminProvidersRoute
+  '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/_authenticated/admin/tickets': typeof AuthenticatedAdminTicketsRoute
+  '/_authenticated/admin/transactions': typeof AuthenticatedAdminTransactionsRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/api/public/v2': typeof ApiPublicV2Route
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/_customer/tickets/$id': typeof AuthenticatedCustomerTicketsIdRoute
+  '/_authenticated/_customer/tickets/': typeof AuthenticatedCustomerTicketsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/v2'
+    | '/admin'
+    | '/account'
+    | '/add-funds'
+    | '/api'
+    | '/dashboard'
+    | '/new-order'
+    | '/orders'
+    | '/services'
+    | '/transactions'
+    | '/admin/api-settings'
+    | '/admin/categories'
+    | '/admin/orders'
+    | '/admin/payments'
+    | '/admin/providers'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/admin/tickets'
+    | '/admin/transactions'
+    | '/admin/users'
+    | '/api/public/v2'
+    | '/admin/'
+    | '/tickets/$id'
+    | '/tickets/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/v2'
+    | '/account'
+    | '/add-funds'
+    | '/api'
+    | '/dashboard'
+    | '/new-order'
+    | '/orders'
+    | '/services'
+    | '/transactions'
+    | '/admin/api-settings'
+    | '/admin/categories'
+    | '/admin/orders'
+    | '/admin/payments'
+    | '/admin/providers'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/admin/tickets'
+    | '/admin/transactions'
+    | '/admin/users'
+    | '/api/public/v2'
+    | '/admin'
+    | '/tickets/$id'
+    | '/tickets'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/v2'
+    | '/_authenticated/_customer'
+    | '/_authenticated/admin'
+    | '/_authenticated/_customer/account'
+    | '/_authenticated/_customer/add-funds'
+    | '/_authenticated/_customer/api'
+    | '/_authenticated/_customer/dashboard'
+    | '/_authenticated/_customer/new-order'
+    | '/_authenticated/_customer/orders'
+    | '/_authenticated/_customer/services'
+    | '/_authenticated/_customer/transactions'
+    | '/_authenticated/admin/api-settings'
+    | '/_authenticated/admin/categories'
+    | '/_authenticated/admin/orders'
+    | '/_authenticated/admin/payments'
+    | '/_authenticated/admin/providers'
+    | '/_authenticated/admin/services'
+    | '/_authenticated/admin/settings'
+    | '/_authenticated/admin/tickets'
+    | '/_authenticated/admin/transactions'
+    | '/_authenticated/admin/users'
+    | '/api/public/v2'
+    | '/_authenticated/admin/'
+    | '/_authenticated/_customer/tickets/$id'
+    | '/_authenticated/_customer/tickets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  V2Route: typeof V2Route
+  ApiPublicV2Route: typeof ApiPublicV2Route
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +388,285 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/v2': {
+      id: '/v2'
+      path: '/v2'
+      fullPath: '/v2'
+      preLoaderRoute: typeof V2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/_customer': {
+      id: '/_authenticated/_customer'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedCustomerRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/_customer/account': {
+      id: '/_authenticated/_customer/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthenticatedCustomerAccountRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
+    '/_authenticated/_customer/add-funds': {
+      id: '/_authenticated/_customer/add-funds'
+      path: '/add-funds'
+      fullPath: '/add-funds'
+      preLoaderRoute: typeof AuthenticatedCustomerAddFundsRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
+    '/_authenticated/_customer/api': {
+      id: '/_authenticated/_customer/api'
+      path: '/api'
+      fullPath: '/api'
+      preLoaderRoute: typeof AuthenticatedCustomerApiRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
+    '/_authenticated/_customer/dashboard': {
+      id: '/_authenticated/_customer/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedCustomerDashboardRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
+    '/_authenticated/_customer/new-order': {
+      id: '/_authenticated/_customer/new-order'
+      path: '/new-order'
+      fullPath: '/new-order'
+      preLoaderRoute: typeof AuthenticatedCustomerNewOrderRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
+    '/_authenticated/_customer/orders': {
+      id: '/_authenticated/_customer/orders'
+      path: '/orders'
+      fullPath: '/orders'
+      preLoaderRoute: typeof AuthenticatedCustomerOrdersRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
+    '/_authenticated/_customer/services': {
+      id: '/_authenticated/_customer/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof AuthenticatedCustomerServicesRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
+    '/_authenticated/_customer/transactions': {
+      id: '/_authenticated/_customer/transactions'
+      path: '/transactions'
+      fullPath: '/transactions'
+      preLoaderRoute: typeof AuthenticatedCustomerTransactionsRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/api-settings': {
+      id: '/_authenticated/admin/api-settings'
+      path: '/api-settings'
+      fullPath: '/admin/api-settings'
+      preLoaderRoute: typeof AuthenticatedAdminApiSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/categories': {
+      id: '/_authenticated/admin/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AuthenticatedAdminCategoriesRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/orders': {
+      id: '/_authenticated/admin/orders'
+      path: '/orders'
+      fullPath: '/admin/orders'
+      preLoaderRoute: typeof AuthenticatedAdminOrdersRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/payments': {
+      id: '/_authenticated/admin/payments'
+      path: '/payments'
+      fullPath: '/admin/payments'
+      preLoaderRoute: typeof AuthenticatedAdminPaymentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/providers': {
+      id: '/_authenticated/admin/providers'
+      path: '/providers'
+      fullPath: '/admin/providers'
+      preLoaderRoute: typeof AuthenticatedAdminProvidersRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/services': {
+      id: '/_authenticated/admin/services'
+      path: '/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AuthenticatedAdminServicesRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/settings': {
+      id: '/_authenticated/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/tickets': {
+      id: '/_authenticated/admin/tickets'
+      path: '/tickets'
+      fullPath: '/admin/tickets'
+      preLoaderRoute: typeof AuthenticatedAdminTicketsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/transactions': {
+      id: '/_authenticated/admin/transactions'
+      path: '/transactions'
+      fullPath: '/admin/transactions'
+      preLoaderRoute: typeof AuthenticatedAdminTransactionsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/api/public/v2': {
+      id: '/api/public/v2'
+      path: '/api/public/v2'
+      fullPath: '/api/public/v2'
+      preLoaderRoute: typeof ApiPublicV2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/_customer/tickets/': {
+      id: '/_authenticated/_customer/tickets/'
+      path: '/tickets'
+      fullPath: '/tickets/'
+      preLoaderRoute: typeof AuthenticatedCustomerTicketsIndexRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
+    '/_authenticated/_customer/tickets/$id': {
+      id: '/_authenticated/_customer/tickets/$id'
+      path: '/tickets/$id'
+      fullPath: '/tickets/$id'
+      preLoaderRoute: typeof AuthenticatedCustomerTicketsIdRouteImport
+      parentRoute: typeof AuthenticatedCustomerRouteRoute
+    }
   }
 }
 
+interface AuthenticatedCustomerRouteRouteChildren {
+  AuthenticatedCustomerAccountRoute: typeof AuthenticatedCustomerAccountRoute
+  AuthenticatedCustomerAddFundsRoute: typeof AuthenticatedCustomerAddFundsRoute
+  AuthenticatedCustomerApiRoute: typeof AuthenticatedCustomerApiRoute
+  AuthenticatedCustomerDashboardRoute: typeof AuthenticatedCustomerDashboardRoute
+  AuthenticatedCustomerNewOrderRoute: typeof AuthenticatedCustomerNewOrderRoute
+  AuthenticatedCustomerOrdersRoute: typeof AuthenticatedCustomerOrdersRoute
+  AuthenticatedCustomerServicesRoute: typeof AuthenticatedCustomerServicesRoute
+  AuthenticatedCustomerTransactionsRoute: typeof AuthenticatedCustomerTransactionsRoute
+  AuthenticatedCustomerTicketsIdRoute: typeof AuthenticatedCustomerTicketsIdRoute
+  AuthenticatedCustomerTicketsIndexRoute: typeof AuthenticatedCustomerTicketsIndexRoute
+}
+
+const AuthenticatedCustomerRouteRouteChildren: AuthenticatedCustomerRouteRouteChildren =
+  {
+    AuthenticatedCustomerAccountRoute: AuthenticatedCustomerAccountRoute,
+    AuthenticatedCustomerAddFundsRoute: AuthenticatedCustomerAddFundsRoute,
+    AuthenticatedCustomerApiRoute: AuthenticatedCustomerApiRoute,
+    AuthenticatedCustomerDashboardRoute: AuthenticatedCustomerDashboardRoute,
+    AuthenticatedCustomerNewOrderRoute: AuthenticatedCustomerNewOrderRoute,
+    AuthenticatedCustomerOrdersRoute: AuthenticatedCustomerOrdersRoute,
+    AuthenticatedCustomerServicesRoute: AuthenticatedCustomerServicesRoute,
+    AuthenticatedCustomerTransactionsRoute:
+      AuthenticatedCustomerTransactionsRoute,
+    AuthenticatedCustomerTicketsIdRoute: AuthenticatedCustomerTicketsIdRoute,
+    AuthenticatedCustomerTicketsIndexRoute:
+      AuthenticatedCustomerTicketsIndexRoute,
+  }
+
+const AuthenticatedCustomerRouteRouteWithChildren =
+  AuthenticatedCustomerRouteRoute._addFileChildren(
+    AuthenticatedCustomerRouteRouteChildren,
+  )
+
+interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminApiSettingsRoute: typeof AuthenticatedAdminApiSettingsRoute
+  AuthenticatedAdminCategoriesRoute: typeof AuthenticatedAdminCategoriesRoute
+  AuthenticatedAdminOrdersRoute: typeof AuthenticatedAdminOrdersRoute
+  AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
+  AuthenticatedAdminProvidersRoute: typeof AuthenticatedAdminProvidersRoute
+  AuthenticatedAdminServicesRoute: typeof AuthenticatedAdminServicesRoute
+  AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
+  AuthenticatedAdminTicketsRoute: typeof AuthenticatedAdminTicketsRoute
+  AuthenticatedAdminTransactionsRoute: typeof AuthenticatedAdminTransactionsRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminApiSettingsRoute: AuthenticatedAdminApiSettingsRoute,
+    AuthenticatedAdminCategoriesRoute: AuthenticatedAdminCategoriesRoute,
+    AuthenticatedAdminOrdersRoute: AuthenticatedAdminOrdersRoute,
+    AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
+    AuthenticatedAdminProvidersRoute: AuthenticatedAdminProvidersRoute,
+    AuthenticatedAdminServicesRoute: AuthenticatedAdminServicesRoute,
+    AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
+    AuthenticatedAdminTicketsRoute: AuthenticatedAdminTicketsRoute,
+    AuthenticatedAdminTransactionsRoute: AuthenticatedAdminTransactionsRoute,
+    AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCustomerRouteRoute: typeof AuthenticatedCustomerRouteRouteWithChildren
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCustomerRouteRoute: AuthenticatedCustomerRouteRouteWithChildren,
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  V2Route: V2Route,
+  ApiPublicV2Route: ApiPublicV2Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
