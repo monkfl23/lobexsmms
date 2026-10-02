@@ -37,7 +37,7 @@ function parseBody(text: string): any {
     const m = t.match(/(\{[\s\S]*\}|\[[\s\S]*\])\s*$/);
     if (m) {
       try {
-        return JSON.parse(m[1]);
+        return JSON.parse(m[1] ?? "");
       } catch {}
     }
     return undefined;
